@@ -15,6 +15,7 @@ const broadcast = (data, ws) => {
 wss.on('connection', (ws) => {
 	let index
 	ws.on('message', (message) => {
+		console.log('message is',message)
 		const data = JSON.parse(message)
 		switch (data.type) {
 			case 'ADD_USER': {
@@ -43,6 +44,7 @@ wss.on('connection', (ws) => {
 	})
 
 	ws.on('close', () => {
+		console.log('onmline users are',users)
 		users.splice(index, 1)
 		broadcast({
 			type: 'USERS_LIST',
